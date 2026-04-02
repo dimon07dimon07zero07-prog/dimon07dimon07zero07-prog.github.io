@@ -104,38 +104,60 @@ https://developer.mozilla.org/ru/docs/Web/CSS/@media
 }
 /* Добавьте классы для управления состоянием */
 
-
-.gif-container {
-  position: relative;
-  width: 400px; /* Ширина контейнера */
-  height: auto;
+/* 1. Подготавливаем "холст" */
+body, html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    position: relative; /* Это важно! Создаём точку отсчета для абсолютного позиционирования */
 }
 
+/* 2. Стили для контейнера */
+.header {
+    display: flex;
+    justify-content: space-between; /* Распределяем элементы по краям */
+    align-items: center; /* Центрирование по вертикали */
+    margin-bottom: 2rem; /* Небольшой отступ снизу */
+}
+
+/* Удаляем ненужное абсолютное позиционирование */
+.gif-container {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    margin-left: 2rem; /* Отступ слева от имени */
+}
+
+/* 3. Стили для картинок (адаптивность) */
+.gif-container .static-img,
+.gif-container .animated-gif {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%; /* Картинка всегда занимает всю ширину контейнера */
+    height: auto; /* Сохраняем пропорции */
+}
+
+/* 4. Логика переключения (осталась без изменений) */
 .gif-container .static-img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 1;
-  pointer-events: none; /* Сделайте статичную картинку неактивной */
-  transition: opacity 0.3s ease-in-out;
+    z-index: 1;
+    pointer-events: none;
+    transition: opacity 0.3s ease-in-out;
 }
 
 .gif-container .animated-gif {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 0;
-  opacity: 0;
-  transition: opacity 0.3s ease-in-out;
+    z-index: 0;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
 }
 
 .gif-container.active .static-img {
-  opacity: 0;
+    opacity: 0;
 }
 
 .gif-container.active .animated-gif {
-  opacity: 1;
-  z-index: 1;
+    opacity: 1;
+    z-index: 1;
 }
 .entry {
   line-height: 7.814vw;
